@@ -1,12 +1,8 @@
 import requests
 from flask import Flask
-from flask import jsonify
-from flask import request
-import json
-from functools import wraps
 from requests.exceptions import HTTPError as HTTPError
 from requests.exceptions import RequestException as RequestException
-
+from flask import render_template
 
 url_list = [
 "http://instance-data",
@@ -33,6 +29,7 @@ url_list = [
 "http://169.254.169.254/latest/meta-data/iam/security-credentials/dummy",
 "http://169.254.169.254/latest/meta-data/iam/security-credentials/s3access",
 "http://169.254.169.254/latest/dynamic/instance-identity/document",
+"http://169.254.169.254/latest/meta-data/iam/security-credentials/aws-elasticbeanorastalk-ec2-role",
 "http://2852039166/latest/meta-data/",
 "http://169.254.170.2/v2/credentials"]
 
@@ -40,22 +37,26 @@ s = requests.Session()
 positive_response_list = []
 negative_response_list = []
 
+def cache():
+    return positive_response_list, negative_response_list
+
 def url_loop():
     for url in url_list:
         try:
             with s:
-                url_req = s.get(url, timeout=15)
+                url_req = s.get(url, timeout=5)
                 url_req_response = url_req.content
                 positive_response_list.append("{}: {}".format(url, url_req_response))
         except RequestException as RE:
             negative_response_list.append("{}: {}".format(url, RE))
+    return cache
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 with app.app_context():
+    cache()
     url_loop()
-
 
 @app.errorhandler(500)
 def internal_server_error(error):
@@ -70,19 +71,23 @@ def not_found_error(error):
 
 
 @app.route('/')
-def home():
-    return """ WELCOME TO CLOUD METADATA Exposed Check"""
-
-
+def index():
+    return render_template(
+        "index.html", 
+        cached_pos=cache()[0], 
+        cached_negative=cache()[1])
 
 @app.route("/cm")
 def metadata():
+    # positives = 
     if len(positive_response_list) > 0:
-        return "CRITICAL: Positive url(s) found: ", str(positive_response_list)
+        return "CRITICAL: Positive url(s) found: {}".format(positive_response_list)
     else:
-        return "ALL GOOD: Negative url(s) found: ", str(negative_response_list)
+        return "ALL GOOD: Negative url(s) found: {}".format(negative_response_list)
     
     
 if __name__ == '__main__':
-    url_loop()
-    app.run(host='0.0.0.0', port="80", threaded=True, debug=True)
+    app.run(
+        host='0.0.0.0', 
+        port="53132", 
+        threaded=True, debug=True)

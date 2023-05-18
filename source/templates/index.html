@@ -1,0 +1,35 @@
+<!-- homepage.html -->
+
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>AWS CLOUD METADATA Exposed Alert validator</title>
+
+</head>
+<body>
+    <pre>
+    AWS CLOUD METADATA Exposed Alert validator
+    <hr>
+    Here are the list of postive and negative urls along with their responses
+    Nothing in Positives means all good!
+    <em>
+        
+        POSITIVES:
+        {% for url_scan in cached_pos %}
+        {{ url_scan }}
+        {% endfor %}
+        
+        NEGATIVES:
+        {% for url_scan in cached_negative %}
+        {{ url_scan }}
+        {% endfor %}
+        
+    Remediation - https://aws.amazon.com/blogs/security/defense-in-depth-open-firewalls-reverse-proxies-ssrf-vulnerabilities-ec2-instance-metadata-service/
+    </em>
+    <hr>
+    
+    </pre>
+</body>
+</html>
