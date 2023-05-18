@@ -1,1 +1,1 @@
-web: run "FLASK_APP=cloud_metadata.py flask run -h localhost -p 80"
+web: sh -c "FLASK_APP=cloud_metadata.py flask run -h localhost -p 80"
