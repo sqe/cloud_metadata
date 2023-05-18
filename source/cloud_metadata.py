@@ -80,9 +80,9 @@ def home():
 def metadata():
     url_loop()
     if len(positive_response_list) > 0:
-        return "CRITICAL: Positive url(s) found: ", positive_response_list
+        return "CRITICAL: Positive url(s) found: ", jsonify(positive_response_list)
     else:
-        return "ALL GOOD: Negative url(s) found: ", negative_response_list
+        return "ALL GOOD: Negative url(s) found: ", jsonify(negative_response_list)
     
     
 if __name__ == '__main__':
