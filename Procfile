@@ -1,1 +1,1 @@
-web: run "-p 80:80 --name=cloud_metadata.py"
+web: "-p 80:80 --name=cloud_metadata.py"
