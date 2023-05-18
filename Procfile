@@ -1,1 +1,1 @@
-web: "-p 80:80 --name=cloud_metadata.py"
+web: cloud_metadata.py
