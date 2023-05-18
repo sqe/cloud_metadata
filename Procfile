@@ -1,1 +1,1 @@
-web: run "FLASK_APP=esddns_service.esddns_endpoint.py flask run -h localhost -p 80"
+web: run "FLASK_APP=cloud_metadata.py flask run -h localhost -p 80"
