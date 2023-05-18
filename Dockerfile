@@ -11,4 +11,4 @@ ENV PORT 80
 EXPOSE 80
 ENV FLASK_APP=cloud_metadata.py
 #ENTRYPOINT [ "flask", "run", "--host=0.0.0.0", "--port=80" ]
-CMD ["FLASK_APP=cloud_metadata.py flask run"]
+CMD ["FLASK_APP=./cloud_metadata.py flask run"]
