@@ -1,1 +1,0 @@
-web: cloud_metadata.py
