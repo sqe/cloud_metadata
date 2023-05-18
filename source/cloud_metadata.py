@@ -7,15 +7,6 @@ from functools import wraps
 from requests.exceptions import HTTPError as HTTPError
 from requests.exceptions import RequestException as RequestException
 
-app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
-app.config['PROPAGATE_EXCEPTIONS'] = True
-s = requests.Session()
-
-target_url_list = [
-
-]
-
 
 url_list = [
 "http://instance-data",
@@ -45,9 +36,6 @@ url_list = [
 "http://2852039166/latest/meta-data/",
 "http://169.254.170.2/v2/credentials"]
 
-positive_response_list = []
-negative_response_list = []
-
 def url_loop():
     for url in url_list:
         try:
@@ -57,6 +45,17 @@ def url_loop():
                 positive_response_list.append("{}: {}".format(url, url_req_response))
         except RequestException as RE:
             negative_response_list.append("{}: {}".format(url, RE))
+
+app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
+app.config['PROPAGATE_EXCEPTIONS'] = True
+s = requests.Session()
+with app.app_context():
+    url_loop()
+
+positive_response_list = []
+negative_response_list = []
+
 
 @app.errorhandler(500)
 def internal_server_error(error):
@@ -78,8 +77,6 @@ def home():
 
 @app.route("/cm")
 def metadata():
-    url_loop()
-
     if len(positive_response_list) > 0:
         return "CRITICAL: Positive url(s) found: ", str(positive_response_list)
     else:
