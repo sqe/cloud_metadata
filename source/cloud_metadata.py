@@ -36,6 +36,10 @@ url_list = [
 "http://2852039166/latest/meta-data/",
 "http://169.254.170.2/v2/credentials"]
 
+s = requests.Session()
+positive_response_list = []
+negative_response_list = []
+
 def url_loop():
     for url in url_list:
         try:
@@ -49,12 +53,8 @@ def url_loop():
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
-s = requests.Session()
 with app.app_context():
     url_loop()
-
-positive_response_list = []
-negative_response_list = []
 
 
 @app.errorhandler(500)
