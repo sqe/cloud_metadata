@@ -76,7 +76,7 @@ def index():
         cached_pos=cache()[0], 
         cached_negative=cache()[1],
         cached_pos_length=len(cache()[0]),
-        cached_negative_lenght=(len(cache()[1]))
+        cached_negative_length=len(cache()[1])
         )
 
 if __name__ == '__main__':
