@@ -1,1 +1,1 @@
-web: run "127.0.0.1:80:80/tcp esddns-56b"
+web: run "-p 80:80 --name=cloud_metadata.py"
