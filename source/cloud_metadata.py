@@ -1,41 +1,41 @@
-import requests
 from flask import Flask
-from requests.exceptions import HTTPError as HTTPError
-from requests.exceptions import RequestException as RequestException
 from flask import render_template
+from requests.exceptions import RequestException as RequestException
+import requests
 
 url_list = [
-"http://instance-data",
-"http://169.254.169.254",
-"http://169.254.169.254.nip.io/",
-"http://425.510.425.510/",
-"http://2852039166/",
-"http://7147006462/",
+"http://0251.00376.000251.0000376/",
+"http://0251.0376.0251.0376/",
+"http://0251.254.169.254",
+"http://0x41414141A9FEA9FE/",
 "http://0xA9.0xFE.0xA9.0xFE/",
 "http://0xA9FEA9FE/",
-"http://0x41414141A9FEA9FE/",
-"http://0251.0376.0251.0376/",
-"http://0251.00376.000251.0000376/",
-"http://0251.254.169.254",
-"http://169.254.169.254/latest/user-data",
-"http://169.254.169.254/latest/meta-data/iam/security-credentials/",
+"http://169.254.169.254.nip.io/",
+"http://169.254.169.254",
+"http://169.254.169.254/latest/dynamic/instance-identity/document",
 "http://169.254.169.254/latest/meta-data/",
-"http://169.254.169.254/latest/meta-data/iam/security-credentials/PhotonInstance",
 "http://169.254.169.254/latest/meta-data/ami-id",
-"http://169.254.169.254/latest/meta-data/reservation-id",
 "http://169.254.169.254/latest/meta-data/hostname",
+"http://169.254.169.254/latest/meta-data/iam/security-credentials/",
+"http://169.254.169.254/latest/meta-data/iam/security-credentials/aws-elasticbeanorastalk-ec2-role",
+"http://169.254.169.254/latest/meta-data/iam/security-credentials/dummy",
+"http://169.254.169.254/latest/meta-data/iam/security-credentials/PhotonInstance",
+"http://169.254.169.254/latest/meta-data/iam/security-credentials/s3access",
 "http://169.254.169.254/latest/meta-data/public-keys/",
 "http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key",
-"http://169.254.169.254/latest/meta-data/iam/security-credentials/dummy",
-"http://169.254.169.254/latest/meta-data/iam/security-credentials/s3access",
-"http://169.254.169.254/latest/dynamic/instance-identity/document",
-"http://169.254.169.254/latest/meta-data/iam/security-credentials/aws-elasticbeanorastalk-ec2-role",
+"http://169.254.169.254/latest/meta-data/reservation-id",
+"http://169.254.169.254/latest/user-data",
+"http://169.254.170.2/v2/credentials",
+"http://2852039166/",
 "http://2852039166/latest/meta-data/",
-"http://169.254.170.2/v2/credentials"]
+"http://425.510.425.510/",
+"http://7147006462/",
+"http://instance-data"
+]
 
-s = requests.Session()
-positive_response_list = []
 negative_response_list = []
+positive_response_list = []
+s = requests.Session()
 
 def cache():
     return positive_response_list, negative_response_list
@@ -69,7 +69,6 @@ def not_found_error(error):
     """
     return not_found_msg
 
-
 @app.route('/')
 def index():
     return render_template(
@@ -77,17 +76,7 @@ def index():
         cached_pos=cache()[0], 
         cached_negative=cache()[1])
 
-@app.route("/cm")
-def metadata():
-    # positives = 
-    if len(positive_response_list) > 0:
-        return "CRITICAL: Positive url(s) found: {}".format(positive_response_list)
-    else:
-        return "ALL GOOD: Negative url(s) found: {}".format(negative_response_list)
-    
-    
 if __name__ == '__main__':
     app.run(
-        host='0.0.0.0', 
-        port="53132", 
-        threaded=True, debug=True)
+        host="0.0.0.0", 
+        port="80")
