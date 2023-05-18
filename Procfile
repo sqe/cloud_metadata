@@ -1,1 +1,1 @@
-web: run "$ENVIRONMENT"
+web: run "esddns-56"
