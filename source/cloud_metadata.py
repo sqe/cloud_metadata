@@ -29,3 +29,6 @@ def metadata():
         get_data_response = json.dumps(get_data_request.json())
 
         return get_data_response
+    
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port="80", threaded=True)
