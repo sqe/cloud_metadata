@@ -18,12 +18,12 @@
     <a href="https://aws.amazon.com/blogs/security/defense-in-depth-open-firewalls-reverse-proxies-ssrf-vulnerabilities-ec2-instance-metadata-service/">Remediation can be found here.</a>
     <em>
         
-        POSITIVES:
+        POSITIVES({{cached_pos_length}}):
         {% for url_scan in cached_pos %}
         {{ url_scan }}
         {% endfor %}
         
-        NEGATIVES:
+        NEGATIVES({{cached_negative_length}}):
         {% for url_scan in cached_negative %}
         {{ url_scan }}
         {% endfor %}
