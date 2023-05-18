@@ -44,9 +44,9 @@ def metadata():
             get_data_response = get_data_request.content
             return get_data_response
     except HTTPError as HE:
-        return HE
+        return str(HE)
     except requests.exceptions.Timeout as TE:
-        return TE
+        return str(TE)
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port="80", threaded=True)
