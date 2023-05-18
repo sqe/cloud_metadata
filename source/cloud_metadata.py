@@ -38,9 +38,20 @@ positive_response_list = []
 s = requests.Session()
 
 def cache():
+    """cache of the url and their responses lists
+
+    Returns:
+        tuple of lists: positive_response_list, negative_response_list
+    """
     return positive_response_list, negative_response_list
 
 def url_loop():
+    """url looper function to extract responses for urls, 
+    and to differentiate Positives and Negatives
+
+    Returns:
+        tuple of lists: fills in cache and returns
+    """
     for url in url_list:
         try:
             with s:
@@ -55,6 +66,9 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 with app.app_context():
+    """ Addressing cold start issue where user would have waited 
+    till their requests completes processing and returns
+    """
     cache()
     url_loop()
 
