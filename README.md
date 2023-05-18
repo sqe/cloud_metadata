@@ -3,7 +3,8 @@ cloud provider metadata retrieval
 
 Containerized cloud provider metadata retrieval for AWS 
 
-Validates vulnerabilities by scanning following urls from within a container:
+
+Validates Instance Metadata Service vulnerabilities by scanning following urls from within a container:
 ~~~
 "http://0251.00376.000251.0000376/",
 "http://0251.0376.0251.0376/",
@@ -36,3 +37,5 @@ Validates vulnerabilities by scanning following urls from within a container:
 renders POSITIVES(count),NEGATIVES(count):
 
 Currently: deployed at http://app-55844.on-aptible.com/
+
+External source on IMDSv1 vulnerabilities: https://securitylabs.datadoghq.com/cloud-security-atlas/attacks/stealing-ec2-instance-role-credentials/
