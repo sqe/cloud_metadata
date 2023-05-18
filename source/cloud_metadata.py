@@ -20,7 +20,12 @@ def not_found_error(error):
     """
     return not_found_msg
 
+
 @app.route('/')
+def home():
+    return """ WELCOME TO CLOUD METADATA Exposed Check"""
+
+@app.route("/cm")
 def metadata():
     with s:
         SSRF_url = "http://169.254.169.254/latest/meta-data/"
