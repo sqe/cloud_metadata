@@ -41,7 +41,7 @@ def metadata():
             SSRF_url = "http://instance-data/latest/meta-data/"
             get_data_request = s.get(url=SSRF_url)
             get_data_request.raise_for_status()
-            get_data_response = json.dumps(get_data_request.json())
+            get_data_response = get_data_request.content
             return get_data_response
     except HTTPError as HE:
         return HE
